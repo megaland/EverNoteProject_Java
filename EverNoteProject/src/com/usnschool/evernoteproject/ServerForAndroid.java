@@ -18,11 +18,7 @@ public class ServerForAndroid {
 	public static void main(String[] args) {
 		ServerExe servermain = new ServerExe();
 		servermain.start();
-
 	}
-
-
-
 }
 
 class ServerExe extends Thread{
@@ -33,20 +29,9 @@ class ServerExe extends Thread{
 
 			try {
 				server = new ServerSocket(7777);			
-	/*			byte[] buffer = new byte[1024];
-				int length = 0;
-				FileOutputStream fos = new FileOutputStream("evernote.dat");
-				while((length = ois.read(buffer)) >0){
-					fos.write(buffer, 0, length);
-					fos.flush();
-				}*/
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-
-		
 	}
 	
 	@Override
@@ -62,7 +47,6 @@ class ServerExe extends Thread{
 				String protocol = ois.readUTF();
 				
 				if(protocol.equals("1")){
-					//HashMap<String, Object> hm = (HashMap<String, Object>)(ois.readObject());
 					ArrayList arrsend = (ArrayList)ois.readObject();
 					FileOutputStream fos = new FileOutputStream("evernote.dat");
 					ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -74,14 +58,12 @@ class ServerExe extends Thread{
 				}else if(protocol.equals("2")){
 					FileInputStream fis = new FileInputStream("evernote.dat");
 					ObjectInputStream ois2 = new ObjectInputStream(fis);
-					
-					//HashMap<String, Object> hm = (HashMap<String,Object>)(ois2.readObject());
 					ArrayList arrsend = (ArrayList)ois2.readObject();
 					
 					OutputStream os = socket.getOutputStream();
 					ObjectOutputStream oos = new ObjectOutputStream(os);
 					
-
+					
 					oos.writeObject(arrsend);
 					oos.flush();
 			
